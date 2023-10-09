@@ -1,8 +1,13 @@
 import Row from "./Row"
+import {
+    useState
+} from 'react'
+
+import Button from "./Button"
 
 const List = () => {
 
-    const userList = [{
+    const [userList, setUserList] = useState([{
         firstName: 'Mehmet',
         lastName: 'Etiksan',
         age: 44
@@ -14,7 +19,7 @@ const List = () => {
         firstName: 'Elif',
         lastName: 'Tekin',
         age: 46
-      }]
+      }])
 
     return (
         <>
@@ -28,6 +33,19 @@ const List = () => {
                     )
                 }) // arrow function
             }
+            </div>
+            <div>
+                <input placeholder="Ad" onChange={(e) => {
+                    console.log('user input', e)
+                }} />
+            </div>
+            <div>
+                <input placeholder="Soyad" onChange={(e) => {
+                    console.log('user input', e)
+                }} />
+            </div>
+            <div>
+                <Button />
             </div>
         </>
     )
