@@ -1,6 +1,7 @@
 import Row from "./Row"
 import {
-    useState
+    useState,
+    useEffect
 } from 'react'
 
 import Button from "./Button"
@@ -21,6 +22,16 @@ const List = () => {
         age: 46
       }])
 
+    const [newUser, setNewUser] = useState({
+        firstName: '',
+        lastName: '',
+        age: ''
+      })
+
+    useEffect(() => {
+        console.log('new user güncellendi', newUser)
+    }, [newUser])
+
     return (
         <>
             <div>User List</div>
@@ -35,13 +46,27 @@ const List = () => {
             }
             </div>
             <div>
-                <input placeholder="Ad" onChange={(e) => {
-                    console.log('user input', e)
+                <input placeholder="Ad" value={newUser.firstName} onChange={(e) => {
+
+                    const firstName = e.target.value
+                    // console.log('user input', firstName)
+
+                    setNewUser({
+                        ...newUser,
+                        firstName
+                    })
                 }} />
             </div>
             <div>
-                <input placeholder="Soyad" onChange={(e) => {
-                    console.log('user input', e)
+                <input placeholder="Soyad" value={newUser.lastName} onChange={(e) => {
+
+                    const lastName = e.target.value
+                    // console.log('user input', lastName)
+
+                    setNewUser({
+                        ...newUser,
+                        lastName
+                    })
                 }} />
             </div>
             <div>
