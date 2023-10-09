@@ -1,9 +1,12 @@
-const Hello = (props) => {
+const Hello = ({
+    data,
+    title="Sayın"
+}) => {
 
-    console.log('hello props', props)
+    console.log('hello props', data)
 
     return (
-      <div>Merhaba {props.data.name}</div>
+      <div>Merhaba {title} {data.name}</div>
     )
 }
 

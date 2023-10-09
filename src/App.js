@@ -9,13 +9,24 @@ const App = () => {
 
     const userInfo = {
       name: 'Mehmet Etiksan',
-      city: 'Istanbul'
+      city: 'Istanbul',
+      age: 44
     }
+
+    const {city} = userInfo // destructure
 
     return (
       <div className="App">
         <header className="App-header">
-          <div>Merhaba {userInfo.city}</div>
+          <div>Merhaba {city}</div>
+          {
+            // conditional rendering
+            userInfo.age > 40 ? (
+              <div>Yaşı 40tan büyük</div>
+            ) : (
+              <div>Yaşı 40tan küçük</div>
+            )
+          }
           <Hello data={userInfo} /> {/* JSX */}
           <Button />
         </header>
