@@ -1,3 +1,5 @@
+import Row from "./Row"
+
 const List = () => {
 
     const userList = [{
@@ -22,7 +24,7 @@ const List = () => {
                 userList.map((item, index) => {
 
                     return (
-                        <div>{item.firstName} {item.lastName}</div>
+                        <Row data={item} />
                     )
                 }) // arrow function
             }
