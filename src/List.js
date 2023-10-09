@@ -6,7 +6,13 @@ import {
 
 import Button from "./Button"
 
-import DatePicker from "react-date-picker"
+// import DatePicker from "react-date-picker"
+// import 'react-date-picker/dist/DatePicker.css';
+// import 'react-calendar/dist/Calendar.css';
+
+import {
+    Table
+} from 'react-bootstrap'
 
 const List = () => {
 
@@ -43,21 +49,33 @@ const List = () => {
         })
     }
 
-    const [date, setDate] = useState(new Date())
+    // const [date, setDate] = useState(new Date())
     // moment
 
     return (
         <>
-            <div>User List</div>
             <div>
-            {
-                userList.map((item, index) => {
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>AD</th>
+                            <th>SOYAD</th>
+                            <th>YAŞ</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            userList.map((item, index) => {
 
-                    return (
-                        <Row key={index} data={item} />
-                    )
-                }) // arrow function
-            }
+                                return (
+                                    <Row key={index} data={item} />
+                                )
+                            }) // arrow function
+                        }
+                    </tbody>
+                </Table>
             </div>
             <div>
                 <input placeholder="Ad" value={newUser.firstName} onChange={(e) => {
@@ -75,9 +93,6 @@ const List = () => {
                     //     lastName
                     // })
                 }} />
-            </div>
-            <div>
-                <DatePicker value={date} onChange={setDate} />
             </div>
             <div>
                 <Button title="Ekle" onClick={() => {

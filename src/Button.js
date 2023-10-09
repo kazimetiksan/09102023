@@ -1,16 +1,26 @@
+import {
+    Button as RBButton
+} from 'react-bootstrap'
+
 const Button = ({
     title,
-    onClick
+    onClick,
+    variant="primary"
 }) => {
 
     return (
-        <button onClick={() => {
 
-            // log analytics
+        <RBButton variant={variant} onClick={onClick}>
+            {title}
+        </RBButton>
+
+        // <button onClick={() => {
+
+        //     // log analytics
             
 
-            onClick()
-        }}>{title}</button>
+        //     onClick()
+        // }}>{title}</button>
     )
 }
 
