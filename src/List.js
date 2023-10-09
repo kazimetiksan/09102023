@@ -33,6 +33,14 @@ const List = () => {
         console.log('new user güncellendi', newUser)
     }, [newUser])
 
+    const setUserInput = (key, value) => {
+
+        setNewUser({
+            ...newUser,
+            [key]: value
+        })
+    }
+
     return (
         <>
             <div>User List</div>
@@ -49,25 +57,18 @@ const List = () => {
             <div>
                 <input placeholder="Ad" value={newUser.firstName} onChange={(e) => {
 
-                    const firstName = e.target.value
-                    // console.log('user input', firstName)
-
-                    setNewUser({
-                        ...newUser,
-                        firstName
-                    })
+                    setUserInput('firstName', e.target.value)
                 }} />
             </div>
             <div>
                 <input placeholder="Soyad" value={newUser.lastName} onChange={(e) => {
 
-                    const lastName = e.target.value
-                    // console.log('user input', lastName)
-
-                    setNewUser({
-                        ...newUser,
-                        lastName
-                    })
+                    setUserInput('lastName', e.target.value)
+                    // const lastName = e.target.value
+                    // setNewUser({
+                    //     ...newUser,
+                    //     lastName
+                    // })
                 }} />
             </div>
             <div>
