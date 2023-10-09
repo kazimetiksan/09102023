@@ -16,6 +16,17 @@ const List = () => {
 
     return (
         <>
+            <div>Kullanıcı Listesi</div>
+            <div>
+            {
+                userList.map((item, index) => {
+
+                    return (
+                        <div>{item.firstName} {item.lastName}</div>
+                    )
+                }) // arrow function
+            }
+            </div>
         </>
     )
 }
