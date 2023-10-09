@@ -18,13 +18,13 @@ const List = () => {
 
     return (
         <>
-            <div>Kullanıcı Listesi</div>
+            <div>User List</div>
             <div>
             {
                 userList.map((item, index) => {
 
                     return (
-                        <Row data={item} />
+                        <Row key={index} data={item} />
                     )
                 }) // arrow function
             }
