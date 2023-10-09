@@ -6,6 +6,8 @@ import {
 
 import Button from "./Button"
 
+import DatePicker from "react-date-picker"
+
 const List = () => {
 
     const [userList, setUserList] = useState([{
@@ -41,6 +43,9 @@ const List = () => {
         })
     }
 
+    const [date, setDate] = useState(new Date())
+    // moment
+
     return (
         <>
             <div>User List</div>
@@ -70,6 +75,9 @@ const List = () => {
                     //     lastName
                     // })
                 }} />
+            </div>
+            <div>
+                <DatePicker value={date} onChange={setDate} />
             </div>
             <div>
                 <Button title="Ekle" onClick={() => {
