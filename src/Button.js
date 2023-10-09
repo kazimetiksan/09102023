@@ -1,7 +1,16 @@
-const Button = () => {
+const Button = ({
+    title,
+    onClick
+}) => {
 
     return (
-        <button>My Button</button>
+        <button onClick={() => {
+
+            // log analytics
+            
+
+            onClick()
+        }}>{title}</button>
     )
 }
 

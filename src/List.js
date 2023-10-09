@@ -22,11 +22,12 @@ const List = () => {
         age: 46
       }])
 
-    const [newUser, setNewUser] = useState({
+    const newUserTemplate = {
         firstName: '',
         lastName: '',
         age: ''
-      })
+    }
+    const [newUser, setNewUser] = useState(newUserTemplate)
 
     useEffect(() => {
         console.log('new user güncellendi', newUser)
@@ -70,7 +71,15 @@ const List = () => {
                 }} />
             </div>
             <div>
-                <Button />
+                <Button title="Ekle" onClick={() => {
+
+                    setUserList([
+                        ...userList,
+                        newUser
+                    ])
+
+                    setNewUser(newUserTemplate)
+                }} />
             </div>
         </>
     )
