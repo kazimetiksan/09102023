@@ -70,7 +70,19 @@ const List = () => {
                             userList.map((item, index) => {
 
                                 return (
-                                    <Row key={index} data={item} />
+                                    <Row 
+                                        key={index} 
+                                        data={item} 
+                                        index={index}
+                                        onRemove={(removalId) => {
+                                            console.log('satır silinecek', removalId)
+
+                                            // array removalId indexi silinecek
+                                            const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
+
+                                            setUserList(filteredList)
+                                        }} 
+                                    />
                                 )
                             }) // arrow function
                         }

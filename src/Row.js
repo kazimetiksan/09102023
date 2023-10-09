@@ -2,7 +2,8 @@ import Button from "./Button"
 
 const Row = ({
     data,
-    index
+    index,
+    onRemove
 }) => {
 
     return (
@@ -18,7 +19,7 @@ const Row = ({
                 </td>
                 <td>
                     <Button variant="danger" title="Sil" onClick={() => {
-                        console.log('satır silinecek', index)
+                        onRemove(index)
                     }} />
                 </td>
             </tr>
