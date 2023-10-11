@@ -157,10 +157,10 @@ const List = () => {
                 show={modalOn} 
                 title="Uyarı" 
                 body="Satır sinilecektir, emin misin ?"
-                onClose={() => {
+                onClose={(confirmed=false) => {
                     setModalOn(false)
 
-                    if (removalIndex !== -1) {
+                    if (removalIndex !== -1 && confirmed) {
                         const filteredList = userList.filter((user, userIndex) => removalIndex !== userIndex)
                         setUserList(filteredList)
 

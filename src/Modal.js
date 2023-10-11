@@ -28,7 +28,8 @@ const Modal = ({
                     }} />
                     <Button title="Sil" variant="danger" onClick={() => {
                         // kapat ve aksiyon
-                        onClose()
+                        // konfirme
+                        onClose(true)
                     }} />
                 </RBModal.Footer>
             </RBModal>
