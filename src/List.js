@@ -9,26 +9,29 @@ import Button from "./Button"
 import Modal from "./Modal"
 
 import {
-    Table
+    Table,
+    Spinner
 } from 'react-bootstrap'
 
 import axios from "axios"
 
+const dummy = [{
+    firstName: 'Mehmet',
+    lastName: 'Etiksan',
+    age: 44
+}, {
+    firstName: 'Hakan',
+    lastName: 'Demir',
+    age: 42
+}, {
+    firstName: 'Elif',
+    lastName: 'Tekin',
+    age: 46
+}]
+
 const List = () => {
 
-    const [userList, setUserList] = useState([{
-        firstName: 'Mehmet',
-        lastName: 'Etiksan',
-        age: 44
-      },{
-        firstName: 'Hakan',
-        lastName: 'Demir',
-        age: 42
-      },{
-        firstName: 'Elif',
-        lastName: 'Tekin',
-        age: 46
-      }])
+    const [userList, setUserList] = useState([])
 
     const newUserTemplate = {
         firstName: '',
@@ -41,6 +44,8 @@ const List = () => {
 
     const [modalOn, setModalOn] = useState(false)
     const [removalIndex, setRemovalIndex] = useState(-1)
+
+    const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
         console.log('new user güncellendi', newUser)
@@ -58,65 +63,81 @@ const List = () => {
 
         const url = 'https://reactpm.azurewebsites.net/api/users'
 
+        setLoading(true)
+
         axios.get(url)
-        .then((response) => {
-            console.log('response', response)
-        })
-        .catch((error) => {
-            console.log('error', error)
-        })
+            .then((response) => {
+                console.log('response', response.data)
+
+                // state set
+                setUserList(response.data)
+
+                setTimeout(() => {
+                    setLoading(false)
+                }, 2000)
+            })
+            .catch((error) => {
+                console.log('error', error)
+                setLoading(false)
+            })
     }
 
     useEffect(() => {
-        
+
         getData()
     }, [])
 
     return (
         <>
             <div>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>AD</th>
-                            <th>SOYAD</th>
-                            <th>YAŞ</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            userList.map((item, index) => {
+                {
+                    isLoading ? (
+                        <Spinner animation="border" variant="warning" />
+                    ) : (
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>AD</th>
+                                    <th>SOYAD</th>
+                                    <th>YAŞ</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    userList.map((item, index) => {
 
-                                return (
-                                    <Row 
-                                        key={index} 
-                                        data={item} 
-                                        index={index}
-                                        onChange={(updateId) => {
-                                            console.log('güncellenecek satır', updateId)
+                                        return (
+                                            <Row
+                                                key={index}
+                                                data={item}
+                                                index={index}
+                                                onChange={(updateId) => {
+                                                    console.log('güncellenecek satır', updateId)
 
-                                            setUpdateIndex(updateId)
+                                                    setUpdateIndex(updateId)
 
-                                            setNewUser(userList[updateId])
-                                        }}
-                                        onRemove={(removalId) => {
-                                            console.log('satır silinecek', removalId)
+                                                    setNewUser(userList[updateId])
+                                                }}
+                                                onRemove={(removalId) => {
+                                                    console.log('satır silinecek', removalId)
 
-                                            setModalOn(true)
-                                            setRemovalIndex(removalId)
+                                                    setModalOn(true)
+                                                    setRemovalIndex(removalId)
 
-                                            // array removalId indexi silinecek
-                                            // const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
-                                            // setUserList(filteredList)
-                                        }} 
-                                    />
-                                )
-                            }) // arrow function
-                        }
-                    </tbody>
-                </Table>
+                                                    // array removalId indexi silinecek
+                                                    // const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
+                                                    // setUserList(filteredList)
+                                                }}
+                                            />
+                                        )
+                                    }) // arrow function
+                                }
+                            </tbody>
+                        </Table>
+                    )
+                }
             </div>
             <div>
                 <input placeholder="Ad" value={newUser.firstName} onChange={(e) => {
@@ -144,8 +165,8 @@ const List = () => {
                             ...userList,
                             newUser
                         ])
-    
-                    } else {    
+
+                    } else {
                         // GÜNCELLE
 
                         const updatedList = userList.map((item, index) => {
@@ -166,11 +187,11 @@ const List = () => {
 
                 }} />
             </div>
-            <Modal 
-                show={modalOn} 
-                title="Uyarı" 
+            <Modal
+                show={modalOn}
+                title="Uyarı"
                 body="Satır sinilecektir, emin misin ?"
-                onClose={(confirmed=false) => {
+                onClose={(confirmed = false) => {
                     setModalOn(false)
 
                     if (removalIndex !== -1 && confirmed) {
