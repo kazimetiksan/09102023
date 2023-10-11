@@ -126,10 +126,6 @@ const List = () => {
 
                                                     setModalOn(true)
                                                     setRemovalIndex(removalId)
-
-                                                    // array removalId indexi silinecek
-                                                    // const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
-                                                    // setUserList(filteredList)
                                                 }}
                                             />
                                         )
@@ -189,7 +185,7 @@ const List = () => {
 
                         axios.patch(url, newUser)
                             .then((response) => {
-                                
+
                                 console.log('user güncellendi', response.data)
 
                                 const updatedList = userList.map((item) => {
@@ -221,8 +217,29 @@ const List = () => {
                     setModalOn(false)
 
                     if (removalIndex !== -1 && confirmed) {
-                        const filteredList = userList.filter((user, userIndex) => removalIndex !== userIndex)
-                        setUserList(filteredList)
+
+                        const _id = userList[removalIndex]._id
+                        const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+
+                        setLoading(true)
+
+                        axios.delete(url, newUser)
+                            .then((response) => {
+
+                                console.log('user silindi')
+
+                                if (response.status === 200) {
+                                    // silme işlemi başarılı
+
+                                    const filteredList = userList.filter((user) => user._id !== _id)
+                                    setUserList(filteredList)
+                                }
+
+                                setLoading(false)
+                            })
+                            .catch((error) => {
+                                console.log('error', error)
+                            })
 
                         setRemovalIndex(-1)
                     }
