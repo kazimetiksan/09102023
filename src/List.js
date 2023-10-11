@@ -8,13 +8,11 @@ import Button from "./Button"
 
 import Modal from "./Modal"
 
-// import DatePicker from "react-date-picker"
-// import 'react-date-picker/dist/DatePicker.css';
-// import 'react-calendar/dist/Calendar.css';
-
 import {
     Table
 } from 'react-bootstrap'
+
+import axios from "axios"
 
 const List = () => {
 
@@ -56,8 +54,23 @@ const List = () => {
         })
     }
 
-    // const [date, setDate] = useState(new Date())
-    // moment
+    const getData = () => {
+
+        const url = 'https://reactpm.azurewebsites.net/api/users'
+
+        axios.get(url)
+        .then((response) => {
+            console.log('response', response)
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+    }
+
+    useEffect(() => {
+        
+        getData()
+    }, [])
 
     return (
         <>
