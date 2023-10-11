@@ -123,8 +123,6 @@ const List = () => {
                             newUser
                         ])
     
-                        setNewUser(newUserTemplate)
-                    
                     } else {    
                         // GÜNCELLE
 
@@ -139,7 +137,10 @@ const List = () => {
                         })
 
                         setUserList(updatedList)
+                        setUpdateIndex(-1)
                     }
+
+                    setNewUser(newUserTemplate)
 
                 }} />
             </div>
