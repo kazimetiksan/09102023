@@ -1,22 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 
-import Hello from './Hello'
-import Button from './Button';
-import List from './List';
-
-import Demo from './Demo';
+import {
+  BrowserRouter, Route, Routes
+} from 'react-router-dom'
 
 // Functional Component
+
+import Home from './Home';
+import Detail from './Detail';
+
 const App = () => {
 
-    return (
-      <div className="App">
-        <header className="App-header">
-          <List />
-        </header>
-      </div>
-    );
-  }
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/view/:_id' element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export default App;

@@ -15,6 +15,10 @@ import {
 
 import axios from "axios"
 
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const dummy = [{
     firstName: 'Mehmet',
     lastName: 'Etiksan',
@@ -30,6 +34,8 @@ const dummy = [{
 }]
 
 const List = () => {
+
+    const navigate = useNavigate()
 
     const [userList, setUserList] = useState([])
 
@@ -103,6 +109,7 @@ const List = () => {
                                     <th>YAŞ</th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,6 +121,15 @@ const List = () => {
                                                 key={index}
                                                 data={item}
                                                 index={index}
+                                                onView={(viewIndex) => {
+
+                                                    const _id = userList[viewIndex]._id
+
+                                                    const targetURL = `/view/${_id}`
+                                                    console.log(targetURL)
+
+                                                    navigate(targetURL)
+                                                }}
                                                 onChange={(updateId) => {
                                                     console.log('güncellenecek satır', updateId)
 
