@@ -73,7 +73,7 @@ const List = () => {
                 setUserList(response.data)
 
                 // setTimeout(() => {
-                    setLoading(false)
+                setLoading(false)
                 // }, 2000)
             })
             .catch((error) => {
@@ -168,39 +168,45 @@ const List = () => {
 
                         const url = 'https://reactpm.azurewebsites.net/api/user'
                         axios.post(url, newUser)
-                        .then((response) => {
-                            console.log('user eklendi', response.data)
+                            .then((response) => {
+                                console.log('user eklendi', response.data)
 
-                            setUserList([
-                                ...userList,
-                                response.data
-                            ])
-                            setLoading(false)
-                        })
-                        .catch((error) => {
-                            console.log('error', error)
-                        })
-
-                        // setUserList([
-                        //     ...userList,
-                        //     newUser
-                        // ])
+                                setUserList([
+                                    ...userList,
+                                    response.data
+                                ])
+                                setLoading(false)
+                            })
+                            .catch((error) => {
+                                console.log('error', error)
+                            })
 
                     } else {
-                        // GÜNCELLE
+                        // API GÜNCELLE
 
-                        const updatedList = userList.map((item, index) => {
+                        const _id = userList[updateIndex]._id
+                        const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
 
-                            if (index === updateIndex) {
-                                return newUser
-                            } else {
-                                return item
-                            }
+                        axios.patch(url, newUser)
+                            .then((response) => {
+                                
+                                console.log('user güncellendi', response.data)
 
-                        })
+                                const updatedList = userList.map((item) => {
 
-                        setUserList(updatedList)
-                        setUpdateIndex(-1)
+                                    if (item._id === _id) {
+                                        return response.data
+                                    } else {
+                                        return item
+                                    }
+                                })
+
+                                setUserList(updatedList)
+                                setLoading(false)
+                            })
+                            .catch((error) => {
+                                console.log('error', error)
+                            })
                     }
 
                     setNewUser(newUserTemplate)
