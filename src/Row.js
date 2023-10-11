@@ -3,7 +3,8 @@ import Button from "./Button"
 const Row = ({
     data,
     index,
-    onRemove
+    onRemove,
+    onChange
 }) => {
 
     return (
@@ -14,7 +15,7 @@ const Row = ({
                 <td>{data.age}</td>
                 <td>
                     <Button title="Güncelle" onClick={() => {
-
+                        onChange(index)
                     }} />
                 </td>
                 <td>

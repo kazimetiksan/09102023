@@ -36,6 +36,7 @@ const List = () => {
         age: ''
     }
     const [newUser, setNewUser] = useState(newUserTemplate)
+    const [updateIndex, setUpdateIndex] = useState(-1)
 
     useEffect(() => {
         console.log('new user güncellendi', newUser)
@@ -74,12 +75,18 @@ const List = () => {
                                         key={index} 
                                         data={item} 
                                         index={index}
+                                        onChange={(updateId) => {
+                                            console.log('güncellenecek satır', updateId)
+
+                                            setUpdateIndex(updateId)
+
+                                            setNewUser(userList[updateId])
+                                        }}
                                         onRemove={(removalId) => {
                                             console.log('satır silinecek', removalId)
 
                                             // array removalId indexi silinecek
                                             const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
-
                                             setUserList(filteredList)
                                         }} 
                                     />
@@ -107,14 +114,33 @@ const List = () => {
                 }} />
             </div>
             <div>
-                <Button title="Ekle" onClick={() => {
+                <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                    setUserList([
-                        ...userList,
-                        newUser
-                    ])
+                    if (updateIndex === -1) {
+                        // EKLE
+                        setUserList([
+                            ...userList,
+                            newUser
+                        ])
+    
+                        setNewUser(newUserTemplate)
+                    
+                    } else {    
+                        // GÜNCELLE
 
-                    setNewUser(newUserTemplate)
+                        const updatedList = userList.map((item, index) => {
+
+                            if (index === updateIndex) {
+                                return newUser
+                            } else {
+                                return item
+                            }
+
+                        })
+
+                        setUserList(updatedList)
+                    }
+
                 }} />
             </div>
         </>
