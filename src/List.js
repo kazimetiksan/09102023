@@ -6,6 +6,8 @@ import {
 
 import Button from "./Button"
 
+import Modal from "./Modal"
+
 // import DatePicker from "react-date-picker"
 // import 'react-date-picker/dist/DatePicker.css';
 // import 'react-calendar/dist/Calendar.css';
@@ -144,6 +146,11 @@ const List = () => {
 
                 }} />
             </div>
+            <Modal 
+                show={true} 
+                title="Uyarı" 
+                body="Satır sinilecektir, emin misin ?" 
+            />
         </>
     )
 }
