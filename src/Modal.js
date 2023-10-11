@@ -7,13 +7,15 @@ import Button from './Button'
 const Modal = ({
     show,
     title,
-    body
+    body,
+    onClose
 }) => {
 
     return (
         <>
             <RBModal show={show} onHide={() => {
-                
+                // sadece kapama
+                onClose()
             }}>
                 <RBModal.Header closeButton>
                     <RBModal.Title>{title}</RBModal.Title>
@@ -21,10 +23,12 @@ const Modal = ({
                 <RBModal.Body>{body}</RBModal.Body>
                 <RBModal.Footer>
                     <Button title="Kapat" variant="secondary" onClick={() => {
-
+                        // sadece kapama
+                        onClose()
                     }} />
                     <Button title="Sil" variant="danger" onClick={() => {
-
+                        // kapat ve aksiyon
+                        onClose()
                     }} />
                 </RBModal.Footer>
             </RBModal>

@@ -38,7 +38,11 @@ const List = () => {
         age: ''
     }
     const [newUser, setNewUser] = useState(newUserTemplate)
+
     const [updateIndex, setUpdateIndex] = useState(-1)
+
+    const [modalOn, setModalOn] = useState(false)
+    const [removalIndex, setRemovalIndex] = useState(-1)
 
     useEffect(() => {
         console.log('new user güncellendi', newUser)
@@ -87,9 +91,12 @@ const List = () => {
                                         onRemove={(removalId) => {
                                             console.log('satır silinecek', removalId)
 
+                                            setModalOn(true)
+                                            setRemovalIndex(removalId)
+
                                             // array removalId indexi silinecek
-                                            const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
-                                            setUserList(filteredList)
+                                            // const filteredList = userList.filter((user, userIndex) => removalId !== userIndex)
+                                            // setUserList(filteredList)
                                         }} 
                                     />
                                 )
@@ -147,9 +154,19 @@ const List = () => {
                 }} />
             </div>
             <Modal 
-                show={true} 
+                show={modalOn} 
                 title="Uyarı" 
-                body="Satır sinilecektir, emin misin ?" 
+                body="Satır sinilecektir, emin misin ?"
+                onClose={() => {
+                    setModalOn(false)
+
+                    if (removalIndex !== -1) {
+                        const filteredList = userList.filter((user, userIndex) => removalIndex !== userIndex)
+                        setUserList(filteredList)
+
+                        setRemovalIndex(-1)
+                    }
+                }}
             />
         </>
     )
