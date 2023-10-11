@@ -29,14 +29,14 @@ const dummy = [{
     age: 46
 }]
 
-const List = () => {
+const List_v0 = () => {
 
     const [userList, setUserList] = useState([])
 
     const newUserTemplate = {
         firstName: '',
         lastName: '',
-        age: '42'
+        age: ''
     }
     const [newUser, setNewUser] = useState(newUserTemplate)
 
@@ -72,9 +72,9 @@ const List = () => {
                 // state set
                 setUserList(response.data)
 
-                // setTimeout(() => {
+                setTimeout(() => {
                     setLoading(false)
-                // }, 2000)
+                }, 2000)
             })
             .catch((error) => {
                 console.log('error', error)
@@ -161,30 +161,11 @@ const List = () => {
                 <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
                     if (updateIndex === -1) {
-
-                        // API EKLE
-
-                        setLoading(true)
-
-                        const url = 'https://reactpm.azurewebsites.net/api/user'
-                        axios.post(url, newUser)
-                        .then((response) => {
-                            console.log('user eklendi', response.data)
-
-                            setUserList([
-                                ...userList,
-                                response.data
-                            ])
-                            setLoading(false)
-                        })
-                        .catch((error) => {
-                            console.log('error', error)
-                        })
-
-                        // setUserList([
-                        //     ...userList,
-                        //     newUser
-                        // ])
+                        // EKLE
+                        setUserList([
+                            ...userList,
+                            newUser
+                        ])
 
                     } else {
                         // GÜNCELLE
@@ -226,4 +207,4 @@ const List = () => {
     )
 }
 
-export default List
+export default List_v0
