@@ -24,9 +24,14 @@ import {
     useDispatch
 } from 'react-redux'
 
+import {
+    useRedux
+} from './redux/hooks'
+
 const List = () => {
 
-    const users = useSelector(state => state.users)
+    // const users = useSelector(state => state.users)
+    const {users} = useRedux()
 
     console.log('redux users', users)
 
@@ -60,33 +65,33 @@ const List = () => {
         })
     }
 
-    const getData = () => {
+    // const getData = () => {
 
-        const url = 'https://reactpm.azurewebsites.net/api/users'
+    //     const url = 'https://reactpm.azurewebsites.net/api/users'
 
-        setLoading(true)
+    //     setLoading(true)
 
-        axios.get(url)
-            .then((response) => {
-                console.log('response', response.data)
+    //     axios.get(url)
+    //         .then((response) => {
+    //             console.log('response', response.data)
 
-                // state set
-                setUserList(response.data)
+    //             // state set
+    //             setUserList(response.data)
 
-                // setTimeout(() => {
-                setLoading(false)
-                // }, 2000)
-            })
-            .catch((error) => {
-                console.log('error', error)
-                setLoading(false)
-            })
-    }
+    //             // setTimeout(() => {
+    //             setLoading(false)
+    //             // }, 2000)
+    //         })
+    //         .catch((error) => {
+    //             console.log('error', error)
+    //             setLoading(false)
+    //         })
+    // }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        getData()
-    }, [])
+    //     getData()
+    // }, [])
 
     return (
         <>
