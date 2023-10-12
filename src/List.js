@@ -20,7 +20,6 @@ import {
 } from 'react-router-dom'
 
 import {
-    useSelector,
     useDispatch
 } from 'react-redux'
 
@@ -28,10 +27,16 @@ import {
     useRedux
 } from './redux/hooks'
 
+import {
+    add
+} from './redux/userSlice'
+
 const List = () => {
 
     // const users = useSelector(state => state.users)
     const {users} = useRedux()
+
+    const dispatch = useDispatch()
 
     console.log('redux users', users)
 
@@ -172,54 +177,16 @@ const List = () => {
             <div>
                 <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                    if (updateIndex === -1) {
+                    // setUserList([
+                    //     ...userList,
+                    //     newUser
+                    // ])
 
-                        // API EKLE
-
-                        setLoading(true)
-
-                        const url = 'https://reactpm.azurewebsites.net/api/user'
-                        axios.post(url, newUser)
-                            .then((response) => {
-                                console.log('user eklendi', response.data)
-
-                                setUserList([
-                                    ...userList,
-                                    response.data
-                                ])
-                                setLoading(false)
-                            })
-                            .catch((error) => {
-                                console.log('error', error)
-                            })
-
-                    } else {
-                        // API GÜNCELLE
-
-                        const _id = userList[updateIndex]._id
-                        const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
-
-                        axios.patch(url, newUser)
-                            .then((response) => {
-
-                                console.log('user güncellendi', response.data)
-
-                                const updatedList = userList.map((item) => {
-
-                                    if (item._id === _id) {
-                                        return response.data
-                                    } else {
-                                        return item
-                                    }
-                                })
-
-                                setUserList(updatedList)
-                                setLoading(false)
-                            })
-                            .catch((error) => {
-                                console.log('error', error)
-                            })
-                    }
+                    dispatch(
+                        add(
+                            newUser
+                        )
+                    )
 
                     setNewUser(newUserTemplate)
 

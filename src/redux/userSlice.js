@@ -22,11 +22,20 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        add: (state, action) => {
+        add: (state, {payload}) => {
             // user list içerisine yeni item ekleme
+            console.log('güncel state', state)
+            console.log('user params', payload)
+
+            return [
+                ...state,
+                payload
+            ]
         }
     }
 })
+
+export const {add} = userSlice.actions
 
 export default userSlice.reducer
 
