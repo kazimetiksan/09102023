@@ -23,7 +23,7 @@ import {
     useRedux
 } from './redux/hooks'
 
-import { add, getAll } from "./redux/dispatch"
+import { addNew, getAll } from "./redux/dispatch"
 
 const List = () => {
 
@@ -54,7 +54,13 @@ const List = () => {
     }, [newUser])
 
     useEffect(() => {
-        getAll()
+
+        setLoading(true)
+        getAll({
+            callback: () => {
+                setLoading(false)
+            }
+        })
     }, [])
 
     const setUserInput = (key, value) => {
@@ -144,10 +150,14 @@ const List = () => {
             <div>
                 <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                    add(newUser)
-
-                    setNewUser(newUserTemplate)
-
+                    setLoading(true)
+                    addNew({
+                        callback: () => {
+                            setLoading(false)
+                            setNewUser(newUserTemplate)
+                        },
+                        newUser
+                    })
                 }} />
             </div>
             <Modal
