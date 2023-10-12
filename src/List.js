@@ -27,7 +27,7 @@ import {
     addNew, 
     getAll, 
     update, 
-    remove 
+    remove
 } from "./redux/dispatch"
 
 const List = () => {
@@ -106,7 +106,7 @@ const List = () => {
                                                 index={index}
                                                 onView={(viewIndex) => {
 
-                                                    const _id = userList[viewIndex]._id
+                                                    const _id = users[viewIndex]._id
 
                                                     const targetURL = `/view/${_id}`
                                                     console.log(targetURL)
@@ -191,29 +191,16 @@ const List = () => {
 
                     if (removalIndex !== -1 && confirmed) {
 
-                        const _id = userList[removalIndex]._id
-                        const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+                        const _id = users[removalIndex]._id
 
-                        setLoading(true)
+                        remove({
+                            callback: () => {
 
-                        axios.delete(url, newUser)
-                            .then((response) => {
+                            },
+                            _id
+                        })
 
-                                console.log('user silindi')
-
-                                if (response.status === 200) {
-                                    // silme işlemi başarılı
-
-                                    const filteredList = userList.filter((user) => user._id !== _id)
-                                    setUserList(filteredList)
-                                }
-
-                                setLoading(false)
-                            })
-                            .catch((error) => {
-                                console.log('error', error)
-                            })
-
+                        // setLoading(true)
                         setRemovalIndex(-1)
                     }
                 }}
