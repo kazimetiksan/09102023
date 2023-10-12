@@ -103,5 +103,60 @@ export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) 
     })
 })
 
+export const update = createAsyncThunk('update', (params, {getState, dispatch}) => {
+
+    console.log('update params', params)
+
+    const {
+        callback,
+        newUser,
+        _id
+    } = params
+
+    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+    axios.patch(url, newUser)
+    .then((response) => {
+        // dispatch(
+        //     add(
+        //         response.data
+        //     )
+        // )
+
+        console.log('update response', response.data)
+
+        callback()
+    })
+    .catch((error) => {
+        callback()
+    })
+})
+
+export const remove = createAsyncThunk('remove', (params, {getState, dispatch}) => {
+
+    console.log('remove params', params)
+
+    const {
+        callback,
+        _id
+    } = params
+
+    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+    axios.delete(url)
+    .then((response) => {
+        // dispatch(
+        //     add(
+        //         response.data
+        //     )
+        // )
+
+        console.log('remove response status', response.status)
+
+        callback()
+    })
+    .catch((error) => {
+        callback()
+    })
+})
+
 export default userSlice.reducer
 
