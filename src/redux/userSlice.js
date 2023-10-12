@@ -1,8 +1,11 @@
 // redux data seti
 
 import {
-    createSlice
+    createSlice,
+    createAsyncThunk
 } from '@reduxjs/toolkit'
+
+import axios from 'axios'
 
 const initialState = [{
     firstName: 'Mehmet',
@@ -33,15 +36,39 @@ export const userSlice = createSlice({
             ]
         },
         setAll: (state, {payload}) => {
+            // tüm state i set et
 
+            console.log('redux response', payload)
+            return payload
         },
         setXAuth: (state, {payload}) => {
+
 
         },
     }
 })
 
 export const {add, setAll, setXAuth} = userSlice.actions
+
+// ASYNC
+
+export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) => {
+
+    console.log('getAll params', params)
+
+    const url = 'https://reactpm.azurewebsites.net/api/users'
+    axios.get(url)
+    .then((response) => {
+        dispatch(
+            setAll(
+                response.data
+            )
+        )
+    })
+    .catch((error) => {
+
+    })
+})
 
 export default userSlice.reducer
 

@@ -19,26 +19,15 @@ import {
     useNavigate
 } from 'react-router-dom'
 
-// import {
-//     useDispatch
-// } from 'react-redux'
-
 import {
     useRedux
 } from './redux/hooks'
 
-// import {
-//     add
-// } from './redux/userSlice'
-
-import { add } from "./redux/dispatch"
+import { add, getAll } from "./redux/dispatch"
 
 const List = () => {
 
-    // const users = useSelector(state => state.users)
     const {users} = useRedux()
-
-    // const dispatch = useDispatch()
 
     console.log('redux users', users)
 
@@ -64,6 +53,10 @@ const List = () => {
         console.log('new user güncellendi', newUser)
     }, [newUser])
 
+    useEffect(() => {
+        getAll()
+    }, [])
+
     const setUserInput = (key, value) => {
 
         setNewUser({
@@ -71,34 +64,6 @@ const List = () => {
             [key]: value
         })
     }
-
-    // const getData = () => {
-
-    //     const url = 'https://reactpm.azurewebsites.net/api/users'
-
-    //     setLoading(true)
-
-    //     axios.get(url)
-    //         .then((response) => {
-    //             console.log('response', response.data)
-
-    //             // state set
-    //             setUserList(response.data)
-
-    //             // setTimeout(() => {
-    //             setLoading(false)
-    //             // }, 2000)
-    //         })
-    //         .catch((error) => {
-    //             console.log('error', error)
-    //             setLoading(false)
-    //         })
-    // }
-
-    // useEffect(() => {
-
-    //     getData()
-    // }, [])
 
     return (
         <>
@@ -178,17 +143,6 @@ const List = () => {
             </div>
             <div>
                 <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
-
-                    // setUserList([
-                    //     ...userList,
-                    //     newUser
-                    // ])
-
-                    // dispatch(
-                    //     add(
-                    //         newUser
-                    //     )
-                    // )
 
                     add(newUser)
 
