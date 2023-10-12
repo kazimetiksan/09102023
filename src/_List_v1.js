@@ -19,16 +19,21 @@ import {
     useNavigate
 } from 'react-router-dom'
 
-import {
-    useSelector,
-    useDispatch
-} from 'react-redux'
+const dummy = [{
+    firstName: 'Mehmet',
+    lastName: 'Etiksan',
+    age: 44
+}, {
+    firstName: 'Hakan',
+    lastName: 'Demir',
+    age: 42
+}, {
+    firstName: 'Elif',
+    lastName: 'Tekin',
+    age: 46
+}]
 
-const List = () => {
-
-    const users = useSelector(state => state.users)
-
-    console.log('redux users', users)
+const List_v1 = () => {
 
     const navigate = useNavigate()
 
@@ -109,7 +114,7 @@ const List = () => {
                             </thead>
                             <tbody>
                                 {
-                                    users.map((item, index) => {
+                                    userList.map((item, index) => {
 
                                         return (
                                             <Row
@@ -260,4 +265,4 @@ const List = () => {
     )
 }
 
-export default List
+export default List_v1
