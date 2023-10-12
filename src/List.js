@@ -13,8 +13,6 @@ import {
     Spinner
 } from 'react-bootstrap'
 
-import axios from "axios"
-
 import {
     useNavigate
 } from 'react-router-dom'
@@ -37,8 +35,6 @@ const List = () => {
     // console.log('redux users', users)
 
     const navigate = useNavigate()
-
-    const [userList, setUserList] = useState([])
 
     const newUserTemplate = {
         firstName: '',

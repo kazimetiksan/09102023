@@ -2,15 +2,30 @@ import {
     useParams
 } from 'react-router-dom'
 
+import {
+    useRedux
+} from './redux/hooks'
+import { useEffect, useState } from 'react'
+
 const Detail = () => {
 
+    const {users} = useRedux()
+
     const {_id} = useParams()
-    console.log('detail id', _id)
+
+    const [user, setUser] = useState(undefined)
+
+    useEffect(() => {
+        if (users) {
+            const found = users.find(user => user._id === _id)
+            setUser(found)
+        }
+    }, [users])
 
     return (
         <div style={{
             margin: 20
-        }}>Detay Sayfası {_id}</div>
+        }}>Detay Sayfası {user?.firstName}</div>
     );
 }
 
