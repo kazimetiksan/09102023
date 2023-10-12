@@ -19,24 +19,26 @@ import {
     useNavigate
 } from 'react-router-dom'
 
-import {
-    useDispatch
-} from 'react-redux'
+// import {
+//     useDispatch
+// } from 'react-redux'
 
 import {
     useRedux
 } from './redux/hooks'
 
-import {
-    add
-} from './redux/userSlice'
+// import {
+//     add
+// } from './redux/userSlice'
+
+import { add } from "./redux/dispatch"
 
 const List = () => {
 
     // const users = useSelector(state => state.users)
     const {users} = useRedux()
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     console.log('redux users', users)
 
@@ -182,11 +184,13 @@ const List = () => {
                     //     newUser
                     // ])
 
-                    dispatch(
-                        add(
-                            newUser
-                        )
-                    )
+                    // dispatch(
+                    //     add(
+                    //         newUser
+                    //     )
+                    // )
+
+                    add(newUser)
 
                     setNewUser(newUserTemplate)
 

@@ -31,11 +31,17 @@ export const userSlice = createSlice({
                 ...state,
                 payload
             ]
-        }
+        },
+        setAll: (state, {payload}) => {
+
+        },
+        setXAuth: (state, {payload}) => {
+
+        },
     }
 })
 
-export const {add} = userSlice.actions
+export const {add, setAll, setXAuth} = userSlice.actions
 
 export default userSlice.reducer
 
