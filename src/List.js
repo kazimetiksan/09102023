@@ -23,13 +23,18 @@ import {
     useRedux
 } from './redux/hooks'
 
-import { addNew, getAll } from "./redux/dispatch"
+import { 
+    addNew, 
+    getAll, 
+    update, 
+    remove 
+} from "./redux/dispatch"
 
 const List = () => {
 
     const {users} = useRedux()
 
-    console.log('redux users', users)
+    // console.log('redux users', users)
 
     const navigate = useNavigate()
 
@@ -50,7 +55,7 @@ const List = () => {
     const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
-        console.log('new user güncellendi', newUser)
+        // console.log('new user güncellendi', newUser)
     }, [newUser])
 
     useEffect(() => {
@@ -113,7 +118,7 @@ const List = () => {
 
                                                     setUpdateIndex(updateId)
 
-                                                    setNewUser(userList[updateId])
+                                                    setNewUser(users[updateId])
                                                 }}
                                                 onRemove={(removalId) => {
                                                     console.log('satır silinecek', removalId)
@@ -150,14 +155,31 @@ const List = () => {
             <div>
                 <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                    setLoading(true)
-                    addNew({
-                        callback: () => {
-                            setLoading(false)
-                            setNewUser(newUserTemplate)
-                        },
-                        newUser
-                    })
+                    if (updateIndex === -1) {
+                        // ekle
+                        setLoading(true)
+                        addNew({
+                            callback: () => {
+                                setLoading(false)
+                                setNewUser(newUserTemplate)
+                            },
+                            newUser
+                        })
+                    } else {
+                        // güncelle
+
+                        const _id = users[updateIndex]._id
+
+                        setLoading(true)
+                        update({
+                            callback: () => {
+                                setLoading(false)
+                                setNewUser(newUserTemplate)
+                            },
+                            newUser,
+                            _id
+                        })
+                    }
                 }} />
             </div>
             <Modal

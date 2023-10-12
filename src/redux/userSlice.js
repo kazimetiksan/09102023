@@ -26,14 +26,21 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         add: (state, {payload}) => {
-            // user list içerisine yeni item ekleme
-            console.log('güncel state', state)
-            console.log('user params', payload)
-
             return [
                 ...state,
                 payload
             ]
+        },
+        updateItem: (state, {payload}) => {
+
+            return state.map((item) => {
+
+                if (item._id === payload._id) {
+                    return payload
+                }
+
+                return item
+            })
         },
         setAll: (state, {payload}) => {
             // tüm state i set et
@@ -48,7 +55,7 @@ export const userSlice = createSlice({
     }
 })
 
-export const {add, setAll, setXAuth} = userSlice.actions
+export const {add, setAll, setXAuth, updateItem} = userSlice.actions
 
 // ASYNC
 
@@ -116,11 +123,11 @@ export const update = createAsyncThunk('update', (params, {getState, dispatch}) 
     const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
     axios.patch(url, newUser)
     .then((response) => {
-        // dispatch(
-        //     add(
-        //         response.data
-        //     )
-        // )
+        dispatch(
+            updateItem(
+                response.data
+            )
+        )
 
         console.log('update response', response.data)
 
