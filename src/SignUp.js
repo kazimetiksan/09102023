@@ -3,6 +3,10 @@ import {
     Form
 } from 'react-bootstrap'
 
+import Button from './Button'
+
+import { signUp } from './redux/dispatch'
+
 const SignUp = () => {
 
     const userTemplate = {
@@ -14,7 +18,9 @@ const SignUp = () => {
     const [userInfo, setUserInfo] = useState(userTemplate)
 
     return (
-        <>
+        <div style={{
+            margin: 20
+        }}>
             <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
                 const firstName = e.target.value
                 setUserInfo({
@@ -43,7 +49,18 @@ const SignUp = () => {
                     password
                 })
             }} />
-        </>
+            <Button title="Kaydet" onClick={() => {
+                console.log('new user', userInfo)
+
+                // redux async api
+                signUp({
+                    callback: () => {
+                        // navigate
+                    },
+                    userInfo
+                })
+            }} />
+        </div>
     )
 }
 

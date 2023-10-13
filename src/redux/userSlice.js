@@ -172,5 +172,50 @@ export const remove = createAsyncThunk('remove', (params, {getState, dispatch}) 
     })
 })
 
+export const signUp = createAsyncThunk('signUp', (params, {getState, dispatch}) => {
+
+    console.log('signUp params', params)
+
+    const {
+        callback,
+        userInfo
+    } = params
+
+    const url = '/api/signup'
+    axios.post(url, userInfo)
+    .then((response) => {
+
+        console.log('signUp response', response.data)
+
+        callback()
+    })
+    .catch((error) => {
+        callback()
+    })
+})
+
+export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) => {
+
+    console.log('signIn params', params)
+
+    const {
+        callback,
+        userInfo
+    } = params
+
+    const url = '/api/signin'
+    axios.post(url, userInfo)
+    .then((response) => {
+
+        console.log('signIn response', response.data)
+        console.log('signIn header', response.headers)
+
+        callback()
+    })
+    .catch((error) => {
+        callback()
+    })
+})
+
 export default userSlice.reducer
 
