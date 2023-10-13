@@ -7,19 +7,11 @@ import {
 
 import axios from 'axios'
 
-const initialState = [{
-    firstName: 'Mehmet',
-    lastName: 'Etiksan',
-    age: 44
-}, {
-    firstName: 'Hakan',
-    lastName: 'Demir',
-    age: 42
-}, {
-    firstName: 'Elif',
-    lastName: 'Tekin',
-    age: 46
-}]
+const initialState = {
+    list: [],
+    profile: {},
+    xauth: undefined
+}
 
 export const userSlice = createSlice({
     name: 'user',
@@ -50,16 +42,28 @@ export const userSlice = createSlice({
             // tüm state i set et
 
             console.log('redux response', payload)
-            return payload
+            // return payload
+            state.list = payload
         },
         setXAuth: (state, {payload}) => {
 
+            state.xauth = payload
+        },
+        setProfile: (state, {payload}) => {
 
+            state.profile = payload
         },
     }
 })
 
-export const {add, setAll, setXAuth, updateItem, removeItem} = userSlice.actions
+export const {
+    add, 
+    setAll, 
+    setXAuth, 
+    updateItem, 
+    removeItem,
+    setProfile
+} = userSlice.actions
 
 // ASYNC
 
@@ -208,12 +212,24 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
     .then((response) => {
 
         console.log('signIn response', response.data)
-        console.log('signIn header', response.headers)
+        console.log('signIn header', response.headers.xauth)
 
-        callback()
+        dispatch(
+            setProfile(
+                response.data
+            )
+        )
+
+        dispatch(
+            setXAuth(
+                response.headers.xauth
+            )
+        )
+
+        callback(true)
     })
     .catch((error) => {
-        callback()
+        callback(false)
     })
 })
 

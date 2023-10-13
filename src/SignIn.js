@@ -7,7 +7,13 @@ import Button from './Button'
 
 import { signIn } from './redux/dispatch'
 
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const SignIn = () => {
+
+    const navigate = useNavigate()
 
     const userTemplate = {
         email: "",
@@ -38,8 +44,11 @@ const SignIn = () => {
 
                 // redux async api
                 signIn({
-                    callback: () => {
-                        // navigate
+                    callback: (isSignedIn) => {
+                        if (isSignedIn) {
+                            // navigate
+                            navigate('/')
+                        }
                     },
                     userInfo
                 })
