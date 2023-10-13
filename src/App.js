@@ -18,10 +18,29 @@ import {
   store
 } from './redux/store'
 
+import { setXAuth } from './redux/userSlice';
+
+import { getMe } from './redux/dispatch';
+
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 
 const App = () => {
+
+  const localXAuth = sessionStorage.getItem('xauth')
+  console.log('local xauth', localXAuth)
+
+  if (localXAuth) {
+    // redux a set et
+    store.dispatch(setXAuth(localXAuth))
+
+    // get user profile
+    getMe({
+      callback: () => {
+        
+      }
+    })
+  }
 
   return (
     <Provider store={store}>

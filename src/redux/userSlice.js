@@ -67,6 +67,44 @@ export const {
 
 // ASYNC
 
+export const getMe = createAsyncThunk('getMe', (params, {getState, dispatch}) => {
+
+    console.log('getMe params', params)
+
+    const {
+        users: {
+            xauth
+        }
+    } = getState()
+    console.log('get state xauth', xauth)
+
+    const {
+        callback
+    } = params
+
+    const url = '/api/me'
+    axios.get(url, {
+        headers: {
+            xauth
+        }
+    })
+    .then((response) => {
+
+        console.log('user profile', response.data)
+
+        dispatch(
+            setProfile(
+                response.data
+            )
+        )
+
+        callback()
+    })
+    .catch((error) => {
+        callback()
+    })
+})
+
 export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) => {
 
     console.log('getAll params', params)
@@ -214,6 +252,10 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
         console.log('signIn response', response.data)
         console.log('signIn header', response.headers.xauth)
 
+        const xauth = response.headers.xauth
+
+        sessionStorage.setItem('xauth', xauth)
+
         dispatch(
             setProfile(
                 response.data
@@ -222,7 +264,7 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
 
         dispatch(
             setXAuth(
-                response.headers.xauth
+                xauth
             )
         )
 

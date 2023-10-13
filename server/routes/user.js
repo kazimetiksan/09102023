@@ -1,9 +1,16 @@
+const {authenticate} = require('../middleware/authenticate')
+
 const express = require('express');
 const router = express.Router();
 
 const { User } = require('../models/user')
 
 const _ = require('lodash');
+
+router.get('/me', authenticate, async (req, res) => {
+
+    res.send(req.user)
+})
 
 router.post('/signin', async (req, res) => {
 
